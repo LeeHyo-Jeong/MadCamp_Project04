@@ -7,10 +7,10 @@ const Canvas = () => {
   const waveGroupRef = useRef(null);
 
   useEffect(() => {
-    console.log("useEffect triggered");
+    //console.log("useEffect triggered");
 
     if (canvasRef.current) {
-      console.log("Canvas ref is valid");
+      //console.log("Canvas ref is valid");
       const cleanup = setupWaveAnimation(canvasRef, waveGroupRef);
       return cleanup;
     }

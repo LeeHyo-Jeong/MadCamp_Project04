@@ -20,21 +20,21 @@ export class Wave {
 
   // 점들 초기화
   init() {
-    console.log("Initializing points array");
+    //console.log("Initializing points array");
     this.points = [];
     for (let i = 0; i < this.totalPoints; i++) {
       const point = new Point(this.index + i, this.pointGap * i, this.centerY);
-      console.log("Point initialized:", point);
+      //console.log("Point initialized:", point);
       this.points.push(point);
     }
-    console.log("Points initialized:", this.points);
+    //console.log("Points initialized:", this.points);
   }
 
   // 파도 그리기
   draw(ctx) {
-    console.log("Drawing wave:", this.points);
+    //console.log("Drawing wave:", this.points);
     if (!this.points || this.points.length === 0) {
-      console.error("Points array is empty or undefined", this.points);
+      //console.error("Points array is empty or undefined", this.points);
       return;
     }
 
@@ -45,7 +45,7 @@ export class Wave {
     let prevY = this.points[0]?.y;
 
     if (prevX === undefined || prevY === undefined) {
-      console.error("First point is undefined", this.points[0]);
+      //console.error("First point is undefined", this.points[0]);
       return;
     }
 
@@ -57,7 +57,7 @@ export class Wave {
       }
 
       if (!this.points[i]) {
-        console.error(`Point at index ${i} is undefined`, this.points);
+        //console.error(`Point at index ${i} is undefined`, this.points);
         continue;
       }
 
@@ -77,6 +77,6 @@ export class Wave {
     ctx.lineTo(this.points[0].x, this.points[0].y);
     ctx.fill();
     ctx.closePath();
-    console.log("Wave drawn");
+    //console.log("Wave drawn");
   }
 }

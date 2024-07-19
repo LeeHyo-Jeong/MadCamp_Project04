@@ -1,26 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
+import axios from "axios";
 
 const Login = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // 로그인 로직 추가
-    // db에 저장, 토큰 발급 등
+  const BASE_URL = "http://localhost";
 
+  const handleLogin = async () => {
     // 현재는 더미 데이터 사용해서 접속
     if (userId == "admin" && password == "admin") {
-      // 로그인 후 진입할 페이지
-      // navigate("");
-    } else {
-      alert("아이디와 비밀번호를 입력하세요");
+      // 메인 페이지로 진입
+    }
+
+    // 로그인 로직 추가
+    // db에 저장, 토큰 발급 등
+    try {
+      const response = await axios.post(`${BASE_URL}:4000/auth/login`, {
+        userId,
+        password,
+      });
+      // 서버로부터 발급 받은 토큰 저장
+      const accessToken = response.data.acccessToken;
+      localStorage.setItem("accessToken", accessToken);
+      alert("로그인에 성공했습니다");
+      // 메인 페이지로 진입
+    } catch (error) {
+      alert("Invalid credentials");
     }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     // 회원가입 로직 추가
     // accessToken 발급
 
@@ -28,8 +41,19 @@ const Login = () => {
     if (userId == "admin" && password == "admin") {
       // 회원가입 후 진입할 페이지
       // navigate("");
-    } else {
-      alert("아이디와 비밀번호를 입력하세요");
+    }
+
+    try {
+      const response = await axios.post(`${BASE_URL}:4000/auth/register`, {
+        userId,
+        password,
+      });
+      const accessToken = response.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      alert("환영합니다!");
+    } catch (error) {
+      console.log(error);
+      alert("Invalid credentials");
     }
   };
 

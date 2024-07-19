@@ -15,12 +15,12 @@ export class WaveGroup {
       const wave = new Wave(i, this.totalPoints, this.color[i]);
       this.waves.push(wave);
     }
-    console.log("WaveGroup initialized:", this.waves);
+    //console.log("WaveGroup initialized:", this.waves);
   }
 
   resize(stageWidth, stageHeight) {
     if (!this.waves || this.waves.length === 0) {
-      console.error("Waves array is empty or undefined");
+      //console.error("Waves array is empty or undefined");
       return;
     }
 
@@ -28,11 +28,11 @@ export class WaveGroup {
       const wave = this.waves[i];
       wave.resize(stageWidth, stageHeight);
     }
-    console.log("WaveGroup resized");
+    //console.log("WaveGroup resized");
   }
 
   draw(ctx) {
-    console.log("Drawing wave group:", this.waves);
+    //console.log("Drawing wave group:", this.waves);
     if (!this.waves || this.waves.length === 0) {
       console.error("Waves array is empty or undefined");
       return;
@@ -42,6 +42,6 @@ export class WaveGroup {
       const wave = this.waves[i];
       wave.draw(ctx);
     }
-    console.log("WaveGroup drawn");
+    //console.log("WaveGroup drawn");
   }
 }

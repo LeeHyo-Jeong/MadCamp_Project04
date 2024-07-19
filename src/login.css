@@ -1,20 +1,25 @@
 .login-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 80%;
   transform: translate(-50%, -50%);
   background-color: #e0e0ff;
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  border: 0px;
+}
+
+.login-input:focus {
+  outline: 1px solid #8888ff;
 }
 
 .login-input {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 0px;
   border-radius: 10px;
 }
 
@@ -22,18 +27,18 @@
   width: calc(70% - 10px);
   padding: 10px;
   margin: 10px 5px 0;
-  border: none;
   border-radius: 10px;
   background-color: #8888ff;
   color: white;
   cursor: pointer;
+  border: 0px;
 }
 
 .register-button {
   width: calc(30% - 10px);
   padding: 10px;
   margin: 10px 5px 0;
-  border: none;
+  border: 0px;
   border-radius: 10px;
   background-color: #8888ff;
   color: white;

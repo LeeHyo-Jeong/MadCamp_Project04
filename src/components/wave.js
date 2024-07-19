@@ -13,7 +13,7 @@ export class Wave {
     this.stageWidth = stageWidth; // 캔버스 너비
     this.stageHeight = stageHeight; // 캔버스 높이
     this.centerX = stageWidth / 2;
-    this.centerY = stageHeight / 4;
+    this.centerY = stageHeight / 6;
     this.pointGap = this.stageWidth / (this.totalPoints - 1); // 각 점 사이 간격
     this.init();
   }

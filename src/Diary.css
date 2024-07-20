@@ -1,0 +1,70 @@
+.diary-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.diary-form {
+  font-family: "GangwonEdu_OTFBoldA";
+  background-color: transparent;
+  padding: 20px;
+  max-width: 1300px;
+  width: 100%;
+  text-align: center;
+}
+
+.diary-input,
+.diary-textarea {
+  font-family: "GangwonEdu_OTFBoldA";
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.diary-textarea {
+  height: 500px;
+  resize: none;
+}
+
+.diary-submit {
+  background-color: #88b3ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.diary-submit:hover {
+  background-color: #669cff;
+}
+
+.icon-button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+}
+
+.back-button {
+  top: 50px;
+  left: 50px;
+}
+
+.save-button {
+  top: 50px;
+  right: 50px;
+}

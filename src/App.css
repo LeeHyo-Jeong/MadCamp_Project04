@@ -1,6 +1,15 @@
 .App {
   text-align: center;
   font-family: "GangwonEdu_OTFBoldA";
+
+  background-image: url('../public/images/main.png'); /* 배경 이미지 추가 */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-logo {
@@ -36,4 +45,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: transparent;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

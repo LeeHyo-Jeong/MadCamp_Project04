@@ -3,18 +3,16 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Canvas from "./components/Canvas";
 import "./App.css";
 import Login from "./components/login";
-import AddDiary from "./components/AddDiary";
+import AddDiary from "./components/WriteDiary";
 
 const gradients = [
-  "linear-gradient(135deg, #e0eaff, #c8d6f4)",
-  "linear-gradient(135deg, #f0f0f0, #d9d9d9)",
-  "linear-gradient(135deg, #c8d6f4, #b0c4de)",
-  "linear-gradient(135deg, #ffcccc, #ff9999)",
-  "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
-  "linear-gradient(135deg, #e1bee7, #ce93d8)",
-  "linear-gradient(135deg, #f8bbd0, #f48fb1)",
-  "linear-gradient(135deg, #ffe0b2, #ffcc80)",
+  "linear-gradient(135deg, #AEECEA, #FAD7E4)",
+  "linear-gradient(135deg, #DBC3FC, #93C5FC)",
+  "linear-gradient(135deg, #D6A1C4, #FDF6D7)",
+  "linear-gradient(135deg, #EAC2FB, #DADDDA)",
 ];
+
+// add로 되어있는 경로를 wrtie, record, draw 등으로 고치기
 
 function App() {
   return (

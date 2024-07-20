@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import exit from "../images/exit.png";
 import save from "../images/save.png";
 
-const AddDiary = ({ gradient }) => {
+const WriteDiary = ({ gradient }) => {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -19,6 +19,11 @@ const AddDiary = ({ gradient }) => {
     console.log("Contents: ", contents);
 
     // db에 저장
+    try{
+      const response = await axios.post(`${process.env.BASE_URL}:4000/diary`)
+    }catch(error){
+
+    }
 
     // 홈 페이지 또는 일기 보는 페이지로 이동
   };
@@ -52,7 +57,6 @@ const AddDiary = ({ gradient }) => {
           onChange={(e) => setContents(e.target.value)}
           className="diary-textarea"
         />
-        <button type="submit" className="diary-submit"></button>
       </form>
       <img
         src={save}
@@ -64,4 +68,4 @@ const AddDiary = ({ gradient }) => {
   );
 };
 
-export default AddDiary;
+export default WriteDiary;

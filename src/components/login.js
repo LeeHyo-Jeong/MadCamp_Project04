@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
 import axios from "axios";
-import AddDiary from "./AddDiary";
+import AddDiary from "./WriteDiary";
 
 const Login = () => {
   const [userId, setUserId] = useState("");

@@ -9,8 +9,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const BASE_URL = "http://localhost";
-
   const handleLogin = async () => {
     // 현재는 더미 데이터 사용해서 접속
     if (userId === "admin" && password === "admin") {
@@ -20,15 +18,21 @@ const Login = () => {
     // 로그인 로직 추가
     // db에 저장, 토큰 발급 등
     try {
-      const response = await axios.post(`${BASE_URL}:4000/auth/login`, {
-        userId,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}:4000/auth/login`,
+        {
+          userId,
+          password,
+        }
+      );
       // 서버로부터 발급 받은 토큰 저장
-      const accessToken = response.data.acccessToken;
+      const accessToken = response.data.accessToken;
+      console.log(`access token: ${accessToken}`);
       localStorage.setItem("accessToken", accessToken);
       alert("로그인에 성공했습니다");
       // 메인 페이지로 진입
+      // 더미데이터
+      navigate("/add/1");
     } catch (error) {
       alert("Invalid credentials");
     }
@@ -45,10 +49,13 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${BASE_URL}:4000/auth/register`, {
-        userId,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}:4000/auth/register`,
+        {
+          userId,
+          password,
+        }
+      );
       const accessToken = response.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
       alert("환영합니다!");

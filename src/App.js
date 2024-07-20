@@ -4,7 +4,8 @@ import "./App.css";
 import Canvas from "./components/Canvas";
 import Ocean from "./components/Ocean";
 import Login from "./components/login";
-import AddDiary from "./components/WriteDiary";
+import WriteDiary from "./components/WriteDiary";
+import DrawingDiary from "./components/DrawingDiary";
 
 const gradients = [
   "linear-gradient(135deg, #AEECEA, #FAD7E4)",
@@ -12,6 +13,12 @@ const gradients = [
   "linear-gradient(135deg, #D6A1C4, #FDF6D7)",
   "linear-gradient(135deg, #EAC2FB, #DADDDA)",
 ];
+
+const writeTypes = {
+  1: "text",
+  2: "draw",
+  3: "audio",
+};
 
 // add로 되어있는 경로를 wrtie, record, draw 등으로 고치기
 
@@ -28,24 +35,23 @@ function App() {
               <Link to="/ocean">Ocean</Link>
             </li>
             <li>
-              <Link to="/add/1">Add 1</Link>
-              <Link to="/add/2">Add 2</Link>
-              <Link to="/add/3">Add 3</Link>
-              <Link to="/add/4">Add 4</Link>
+              <Link to="/add/text">Add text</Link>
+              <Link to="/add/draw">Add draw</Link>
+              <Link to="/add/audio">Add audio</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Canvas />} />
           <Route path="/ocean" element={<Ocean />} />
-
-          {gradients.map((gradient, index) => (
-            <Route
-              key={index}
-              path={`/add/${index + 1}`}
-              element={<AddDiary gradient={gradient} />}
-            />
-          ))}
+          <Route
+            path="/add/text"
+            element={<WriteDiary gradient={gradients[0]} />}
+          />
+          <Route
+            path="/add/draw"
+            element={<DrawingDiary gradient={gradients[1]} />}
+          />
         </Routes>
       </div>
     </Router>

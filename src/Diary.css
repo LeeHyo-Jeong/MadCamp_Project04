@@ -73,3 +73,8 @@
   top: 50px;
   right: 50px;
 }
+
+input[type="date"]:not(.has-value)::before {
+  color: gray;
+  content: attr(placeholder);
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../login.css";
 import axios from "axios";
+import AddDiary from "./AddDiary";
 
 const Login = () => {
   const [userId, setUserId] = useState("");
@@ -12,8 +13,8 @@ const Login = () => {
 
   const handleLogin = async () => {
     // 현재는 더미 데이터 사용해서 접속
-    if (userId == "admin" && password == "admin") {
-      // 메인 페이지로 진입
+    if (userId === "admin" && password === "admin") {
+      navigate("/add/1");
     }
 
     // 로그인 로직 추가

@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { WaveGroup } from "./wavegroup";
 import { setupWaveAnimation } from "../waveFunctions";
+import "../Canvas.css";
+import Login from "./login";
 
 const Canvas = () => {
   const canvasRef = useRef(null);
@@ -17,11 +19,14 @@ const Canvas = () => {
   }, []);
 
   return (
-    <div>
-      <canvas
-        ref={canvasRef}
-        style={{ width: "100%", height: "100%" }}
-      ></canvas>
+    <div className="canvas-container">
+      <div className = "canvas-background">
+        <canvas
+          ref={canvasRef}
+          style={{ width: "100%", height: "100%" }}
+        ></canvas>
+        <Login />
+      </div>
     </div>
   );
 };

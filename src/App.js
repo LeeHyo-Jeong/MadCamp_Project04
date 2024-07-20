@@ -1,19 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Canvas from "./components/Canvas";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
-import Login from "./components/login";
+import Canvas from "./components/Canvas";
+import Ocean from "./components/Ocean";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <div className="canvas-container">
-          <Login />
-          <Canvas />
-        </div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Canvas</Link>
+            </li>
+            <li>
+              <Link to="/ocean">Ocean</Link>
+            </li>
+          </ul>
+        </nav>
         <Routes>
           <Route path="/" element={<Canvas />} />
+          <Route path="/ocean" element={<Ocean />} />
         </Routes>
       </div>
     </Router>

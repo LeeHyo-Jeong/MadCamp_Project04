@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async () => {
     // 현재는 더미 데이터 사용해서 접속
     if (userId === "admin" && password === "admin") {
-      navigate("/add/1");
+      navigate("/add/draw");
     }
 
     // 로그인 로직 추가
@@ -32,7 +32,7 @@ const Login = () => {
       alert("로그인에 성공했습니다");
       // 메인 페이지로 진입
       // 더미데이터
-      navigate("/add/1");
+      navigate("/add/draw");
     } catch (error) {
       alert("Invalid credentials");
     }

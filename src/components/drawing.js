@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
+import "../drawing.css";
 
 const Drawing = ({ onSave }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
+  const [lineWidth, setLineWidht] = useState(5);
+  const [color, setColor] = useState("#000000");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -30,6 +33,9 @@ const Drawing = ({ onSave }) => {
   const draw = (e) => {
     if (!drawing) return;
     ctxRef.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctxRef.current.strokeStyle = color;
+    ctxRef.current.lineWidth = lineWidth;
+
     ctxRef.current.stroke();
   };
 
@@ -40,14 +46,43 @@ const Drawing = ({ onSave }) => {
   };
 
   return (
-    <div style={{ background: "rgba(255, 255, 255 ,1)" }}>
+    <div className="drawing-canvas">
       <canvas
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseUp={finishDrawing}
         onMouseMove={draw}
       />
-      <button onClick={saveDrawing}>Save</button>
+      <div className="color-palette">
+        {[
+          "#B20217",
+          "#E7001D",
+          "#E7492D",
+          "#F2884A",
+          "#F6CA4B",
+          "#FCFB53",
+          "#7DFA54",
+          "#10AD2E",
+          "#12F5F9",
+          "#0FA7F2",
+          "#072EE9",
+          "#6014BE",
+          "#C303B9",
+          "#8A8B90",
+          "#FFFFFF",
+          "#000000",
+        ].map((c) => (
+          <div
+            key={c}
+            style={{ backgroundColor: c }}
+            className="color-swatch"
+            onClick={() => setColor(c)}
+          />
+        ))}
+      </div>
+      <button className="drawing-save-button" onClick={saveDrawing}>
+        그림 완성
+      </button>
     </div>
   );
 };

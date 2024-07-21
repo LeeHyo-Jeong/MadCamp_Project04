@@ -20,6 +20,8 @@ const DrawingDiary = ({ gradient }) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
 
+    console.log("save image");
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}:4000/diary`,
@@ -33,6 +35,7 @@ const DrawingDiary = ({ gradient }) => {
 
       //navigate("/diaries");
     } catch (error) {
+      console.log(error);
       console.error("There was an error while saving the diary", error);
     }
   };

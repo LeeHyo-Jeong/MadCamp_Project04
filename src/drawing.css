@@ -1,0 +1,33 @@
+.drawing-canvas {
+  width: 1320px;
+  margin-top: 10px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.drawing-save-button {
+  margin-top: 20px;
+}
+.color-palette {
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+  margin: 10px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.color-swatch {
+  border: 1px solid #ccc;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 50%;
+}

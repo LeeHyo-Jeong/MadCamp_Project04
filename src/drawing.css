@@ -6,7 +6,13 @@
 }
 
 .drawing-save-button {
-  margin-top: 20px;
+  font-family: "GangwonEdu_OTFBoldA";
+  background-color: #8e93ed;
+  color: white;
+  border: 0px;
+  padding: 10px;
+  border-radius: 15px;
+  margin-left: 15px;
 }
 .color-palette {
   background-color: white;
@@ -18,8 +24,8 @@
   width: 80px;
   margin: 10px;
   position: absolute;
-  left: 10px;
-  top: 50%;
+  left: 8%;
+  top: 70%;
   transform: translateY(-50%);
 }
 
@@ -30,4 +36,48 @@
   margin: 2px;
   cursor: pointer;
   border-radius: 50%;
+}
+
+.drawing-icon-button {
+  background-color: white;
+  border-radius: 15px;
+  margin-left: 15px;
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 75%;
+  right: 10px;
+  top: 73%;
+  transform: translateY(-50%);
+}
+
+.line-width-slider {
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+  margin-bottom: 10px;
+}
+
+.line-width-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #d28bf3;
+}
+
+.line-width-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #d28bf3;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  top: -2px;
 }

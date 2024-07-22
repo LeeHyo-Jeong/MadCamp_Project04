@@ -1,5 +1,7 @@
 import React from 'react';
 import '../Ocean.css';
+import { useNavigate } from 'react-router-dom';
+
 import arrow_left from "../images/arrow_left.png";
 import arrow_right from "../images/arrow_right.png";
 import Fish from './fishes';
@@ -7,6 +9,8 @@ import Jellyfish from './jellyfish';
 import Seaweed from './seaweed';
 
 const Ocean = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="dream-sea">
       <header className="header">
@@ -34,7 +38,7 @@ const Ocean = () => {
       </main>
 
       <footer className="footer">
-        <button className="bottom-button">새로운 꿈을 꾸셨나요?</button>
+        <button className="bottom-button" onClick={() => navigate(`/belly`)}>새로운 꿈을 꾸셨나요?</button>
       </footer>
     </div>
   );

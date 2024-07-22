@@ -1,29 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react'
 import '../Belly.css';
 
-const Belly = () => {
-    return (
-      <div className="inside-belly">
+import {
+  useTransition,
+  useSpring,
+  useChain,
+  config,
+  animated,
+  useSpringRef,
+} from '@react-spring/web'
+import { useNavigate } from 'react-router-dom';
 
-        {/* 여기부터는 수정해야함 !! floating button 되게 수정하고 퇴근하장 */}
-        {/* <header className="header">
-          <button className="nav-button"><img src={arrow_left} alt="Left" /></button>
-          <h1 className="title">000님의 7월의 꿈의 바다</h1>
-          <button className="nav-button"><img src={arrow_right} alt="Right" /></button>
-        </header>
-        
-        <main className="main-content">
-          <Fish/>
-          <Fish/>
-          <Fish/>
-        </main>
-  
-        <footer className="footer">
-          <button className="bottom-button">새로운 꿈을 꾸셨나요?</button>
-        </footer> */}
-        {/* 여기까지는 아마 다 사라질 코드. */}
+import data from './colordata'
+import styles from '../boxes.module.css'
+
+const Belly = () => {
+
+  const [open, set] = useState(false);
+  const navigate = useNavigate();
+
+  const springApi = useSpringRef();
+  const { size, ...rest } = useSpring({
+    ref: springApi,
+    config: config.stiff,
+    from: { size: '20%', background: 'hotpink' },
+    to: {
+      size: open ? '100%' : '20%',
+      background: open ? 'white' : 'hotpink',
+    },
+  });
+
+  const transApi = useSpringRef();
+  const transition = useTransition(open ? data : [], {
+    ref: transApi,
+    trail: 400 / data.length,
+    from: { opacity: 0, scale: 0 },
+    enter: { opacity: 1, scale: 1 },
+    leave: { opacity: 0, scale: 0 },
+  });
+
+  // This will orchestrate the two animations above, comment the last arg and it creates a sequence
+  useChain(open ? [springApi, transApi] : [transApi, springApi], [
+    0,
+    open ? 0.1 : 0.6,
+  ]);
+
+  const handleItemClick = (item) => {
+    navigate('/add/1');
+    // navigate(`/path-to-new-page/${item.id}`);
+    // 위와 같은 식으루
+    // 그라데이션마다 id 매겨서 배경 색깔 정해지게 하면 될듯.
+  };
+
+  return (
+    <div className="inside-belly">
+      <div className={styles.wrapper}>
+        <div className='description'>오늘의 꿈에 어울리는 색상을 선택하세요</div>
+        <animated.div
+          style={{ ...rest, width: size, height: size }}
+          className={styles.container}
+          onClick={() => set(open => !open)}>
+          {transition((style, item) => (
+            <animated.div
+              className={styles.item}
+              style={{ ...style, background: item.css }}
+              onClick={() => handleItemClick(item)}
+            />
+          ))}
+        </animated.div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Belly;

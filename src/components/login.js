@@ -4,7 +4,7 @@ import "../login.css";
 import axios from "axios";
 import AddDiary from "./WriteDiary";
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -14,7 +14,11 @@ const Login = () => {
   const handleLogin = async () => {
     // 현재는 더미 데이터 사용해서 접속
     if (userId === "admin" && password === "admin") {
-      navigate("/add/1");
+      onLoginSuccess();  // 성공 시 콜백 호출
+      setTimeout(() => {
+        navigate("/ocean");  // 일정 시간 후 Ocean 페이지로 이동
+      }, 1500);  // 5초
+      return;
     }
 
     // 로그인 로직 추가
@@ -25,10 +29,13 @@ const Login = () => {
         password,
       });
       // 서버로부터 발급 받은 토큰 저장
-      const accessToken = response.data.acccessToken;
+      const accessToken = response.data.accessToken;
       localStorage.setItem("accessToken", accessToken);
       alert("로그인에 성공했습니다");
-      // 메인 페이지로 진입
+      onLoginSuccess();  // 성공 시 콜백 호출
+      setTimeout(() => {
+        navigate("/ocean");  // 일정 시간 후 Ocean 페이지로 이동
+      }, 1500);  // 5초
     } catch (error) {
       alert("Invalid credentials");
     }
@@ -39,7 +46,7 @@ const Login = () => {
     // accessToken 발급
 
     // 현재는 더미 데이터 사용해서 접속
-    if (userId == "admin" && password == "admin") {
+    if (userId === "admin" && password == "admin") {
       // 회원가입 후 진입할 페이지
       // navigate("");
     }

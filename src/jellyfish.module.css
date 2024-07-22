@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.card {
+    width: 200px;
+    height: 150px;
+    background-size: contain;
+    background-image: url('./images/jellyfish.png'); /* url() 함수 사용 */
+    background-repeat: no-repeat; /* 배경 이미지가 반복되지 않도록 설정 */
+    background-position: center; /* 배경 이미지를 중앙에 위치 */
+    border-radius: 10px;
+    overflow: hidden;
+    /* box-shadow: 0 10px 20px rgba(66, 65, 65, 0.5); */
+}
+
+.card div {
+    background-size: cover;
+    background-position: center;
+    height: 20%;
+    width: 100%;
+}

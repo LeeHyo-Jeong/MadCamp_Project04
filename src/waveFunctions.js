@@ -1,7 +1,7 @@
 import { WaveGroup } from "./components/wavegroup";
 
 // 캔버스 크기 설정, wave 애니메이션 루프 설정
-export const setupWaveAnimation = (canvasRef, waveGroupRef) => {
+export const setupWaveAnimation = (canvasRef, waveGroupRef, centerY) => {
   // canvasRef와 waveGroupRef를 이용해 캔버스와 파도 그룹 참조
   const canvas = canvasRef.current; // HTML5 Canvas 엘리먼트
   if (!canvas) {
@@ -31,7 +31,7 @@ export const setupWaveAnimation = (canvasRef, waveGroupRef) => {
 
     console.log("canvas resized to: ", stageWidth, stageHeight);
 
-    waveGroupRef.current.resize(stageWidth, stageHeight);
+    waveGroupRef.current.resize(stageWidth, stageHeight, centerY);
 
     console.log("WaveGroup resized");
   };

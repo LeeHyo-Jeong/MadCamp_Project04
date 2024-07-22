@@ -58,7 +58,7 @@ const DrawingDiary = ({ gradient }) => {
         />
         <input
           type="text"
-          placeholder="당신의 꿈을 한 줄로 나타낸다면?"
+          placeholder="그날의 꿈에 제목을 지어준다면?"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="diary-input"

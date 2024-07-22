@@ -32,7 +32,7 @@ const Login = () => {
       alert("로그인에 성공했습니다");
       // 메인 페이지로 진입
       // 더미데이터
-      navigate("/add/draw");
+      navigate("/add/audio");
     } catch (error) {
       alert("Invalid credentials");
     }

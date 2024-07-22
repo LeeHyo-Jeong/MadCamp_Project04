@@ -6,6 +6,7 @@ import Ocean from "./components/Ocean";
 import Login from "./components/login";
 import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
+import RecordingDiary from "./components/RecordingDiary";
 
 const gradients = [
   "linear-gradient(135deg, #AEECEA, #FAD7E4)",
@@ -51,6 +52,10 @@ function App() {
           <Route
             path="/add/draw"
             element={<DrawingDiary gradient={gradients[1]} />}
+          />
+          <Route
+            path="/add/audio"
+            element={<RecordingDiary gradient={gradients[2]} />}
           />
         </Routes>
       </div>

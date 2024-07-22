@@ -1,0 +1,53 @@
+.diary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diary-record-container {
+  margin-left: 25px;
+  height: 556px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1320px;
+  border-radius: 20px;
+  background-color: white;
+  margin-top: -10px;
+}
+
+.record-button {
+  font-family: "GangwonEdu_OTFBoldA";
+  font-size: 20px;
+  background-color: #fba6db;
+  color: white;
+  border: 0px;
+  padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 30px;
+}
+
+.record-buttons {
+  background-color: #fba6db;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.record-button,
+.stop-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.record-timer {
+  font-family: "GangwonEdu_OTFBoldA";
+  font-size: 40px;
+  color: #fba6db;
+}

@@ -1,31 +1,51 @@
 import React, { useRef, useEffect } from "react";
 import { WaveGroup } from "./wavegroup";
-import { setupWaveAnimation } from "../waveFunctions";
 import "../Canvas.css";
 import Login from "./login";
 
-const Canvas = () => {
+const Canvas = ({ centerY, onLoginSuccess }) => {
   const canvasRef = useRef(null);
-  const waveGroupRef = useRef(null);
+  const waveGroupRef = useRef(new WaveGroup());
 
   useEffect(() => {
-    //console.log("useEffect triggered");
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-    if (canvasRef.current) {
-      //console.log("Canvas ref is valid");
-      const cleanup = setupWaveAnimation(canvasRef, waveGroupRef);
-      return cleanup;
-    }
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      waveGroupRef.current.resize(canvas.width, canvas.height, centerY);
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      waveGroupRef.current.draw(ctx);
+      requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
   }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    waveGroupRef.current.resize(canvas.width, canvas.height, centerY/1.2);
+  }, [centerY]);
 
   return (
     <div className="canvas-container">
-      <div className = "canvas-background">
+      <div className="canvas-background">
         <canvas
           ref={canvasRef}
           style={{ width: "100%", height: "100%" }}
         ></canvas>
-        <Login />
+        <Login onLoginSuccess={onLoginSuccess} />
       </div>
     </div>
   );

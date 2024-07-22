@@ -9,11 +9,11 @@ export class Wave {
   }
 
   // 캔버스 크기에 맞게 파도 크기 조정
-  resize(stageWidth, stageHeight) {
+  resize(stageWidth, stageHeight, centerY = stageHeight) {
     this.stageWidth = stageWidth; // 캔버스 너비
     this.stageHeight = stageHeight; // 캔버스 높이
     this.centerX = stageWidth / 2;
-    this.centerY = stageHeight / 1.2;
+    this.centerY = centerY; //파도 중심 y좌표 -> 수정가능하게 하여 전환시 수위 올릴 거야.
     this.pointGap = this.stageWidth / (this.totalPoints - 1); // 각 점 사이 간격
     this.init();
   }

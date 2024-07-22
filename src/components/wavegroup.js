@@ -5,9 +5,9 @@ export class WaveGroup {
     this.totalWaves = 3;
     this.totalPoints = 6;
     this.color = [
-      "rgba(254,215,251, 0.4)",
-      "rgba(173,224,255,0.4)",
-      "rgba(215,254,249,0.4)",
+      "rgba(255,159,156, 1)",
+      "rgba(178,200,255, 0.8)",
+      "rgba(89,201,216, 0.6)",
     ];
     this.waves = [];
 
@@ -18,7 +18,7 @@ export class WaveGroup {
     //console.log("WaveGroup initialized:", this.waves);
   }
 
-  resize(stageWidth, stageHeight) {
+  resize(stageWidth, stageHeight, centerY) {
     if (!this.waves || this.waves.length === 0) {
       //console.error("Waves array is empty or undefined");
       return;
@@ -26,7 +26,7 @@ export class WaveGroup {
 
     for (let i = 0; i < this.totalWaves; i++) {
       const wave = this.waves[i];
-      wave.resize(stageWidth, stageHeight);
+      wave.resize(stageWidth, stageHeight, centerY);
     }
     //console.log("WaveGroup resized");
   }

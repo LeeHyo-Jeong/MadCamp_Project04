@@ -1,0 +1,13 @@
+.inside-belly {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: url('../public/images/belly_back_ref.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.description {
+    font-size: 50px;
+
+}

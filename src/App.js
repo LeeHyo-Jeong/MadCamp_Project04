@@ -7,6 +7,7 @@ import Login from "./components/login";
 import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
 import RecordingDiary from "./components/RecordingDiary";
+import Belly from "./components/Belly";
 
 const gradients = [
   "linear-gradient(135deg, #AEECEA, #FAD7E4)",
@@ -29,14 +30,14 @@ function App() {
   const handleLoginSuccess = () => {
     const interval = setInterval(() => {
       setCenterY((prevCenterY) => {
-        const newCenterY = prevCenterY - 50;  // 수위를 점진적으로 높임
+        const newCenterY = prevCenterY - 50; // 수위를 점진적으로 높임
         if (newCenterY <= window.innerHeight / 8) {
-          clearInterval(interval);  // 목표 수위에 도달하면 중지
+          clearInterval(interval); // 목표 수위에 도달하면 중지
           return window.innerHeight / 8;
         }
         return newCenterY;
       });
-    }, 50);  // ms 간격으로 업데이트
+    }, 50); // ms 간격으로 업데이트
   };
 
   return (
@@ -54,11 +55,17 @@ function App() {
               <Link to="/add/text">Add text</Link>
               <Link to="/add/draw">Add draw</Link>
               <Link to="/add/audio">Add audio</Link>
+              <Link to="/belly">Belly</Link>
             </li>
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<Canvas centerY={centerY} onLoginSuccess={handleLoginSuccess} />} />
+          <Route
+            path="/"
+            element={
+              <Canvas centerY={centerY} onLoginSuccess={handleLoginSuccess} />
+            }
+          />
           <Route path="/ocean" element={<Ocean />} />
           <Route
             path="/add/text"
@@ -72,6 +79,10 @@ function App() {
             path="/add/audio"
             element={<RecordingDiary gradient={gradients[2]} />}
           />
+          <Route path="/belly" element={<Belly />} />
+          <Route path="/diary/text/:id" element={<WriteDiary />} />
+          <Route path="/diary/audio/:id" element={<RecordingDiary />} />
+          <Route path="/diary/image/:id" element={<DrawingDiary />} />
         </Routes>
       </div>
     </Router>

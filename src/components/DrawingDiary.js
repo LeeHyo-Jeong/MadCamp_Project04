@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Diary.css";
+import "../addDiary.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Drawing from "./drawing";
@@ -48,7 +48,7 @@ const DrawingDiary = ({ gradient }) => {
         className="icon-button back-button"
         onClick={() => navigate(-1)}
       />
-      <form onSubmit={handleSubmit} className="diary-form">
+      <form className="diary-form">
         <input
           type="date"
           placeholder="언제 꾼 꿈인가요?"

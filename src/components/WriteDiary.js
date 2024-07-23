@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Diary.css";
+import "../addDiary.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import exit from "../images/exit.png";

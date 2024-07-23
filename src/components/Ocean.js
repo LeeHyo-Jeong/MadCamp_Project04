@@ -62,32 +62,33 @@ const Ocean = () => {
     setSelectedYear(e.target.value);
   };
 
+  const handlePreviousMonth = () => {
+    if (selectedMonth === 1) {
+      setSelectedMonth(12);
+      setSelectedYear(selectedYear - 1);
+    } else setSelectedMonth(selectedMonth - 1);
+  };
+
+  const handleNextMonth = () => {
+    if (selectedMonth === 12) {
+      setSelectedMonth(1);
+      setSelectedYear(selectedYear + 1);
+    } else setSelectedMonth(selectedMonth + 1);
+  };
+
   return (
     <div className="dream-sea">
       <header className="header">
         <button className="nav-button">
-          <img src={arrow_left} alt="Left" />
+          <img src={arrow_left} alt="Left" onClick={handlePreviousMonth} />
         </button>
-        <h1 className="title">{selectedMonth}월의 꿈의 바다</h1>
+        <h1 className="title">
+          {selectedYear}년 {selectedMonth}월의 꿈의 바다
+        </h1>
         <button className="nav-button">
-          <img src={arrow_right} alt="Right" />
+          <img src={arrow_right} alt="Right" onClick={handleNextMonth} />
         </button>
       </header>
-
-      <div className="month-selector">
-        <select value={selectedYear} onChange={handleYearChange}>
-          <option value={2023}>2023</option>
-          <option value={2024}>2024</option>
-        </select>
-        <select value={selectedMonth} onChange={handleMonthChange}>
-          {Array.from({ length: 12 }, (_, index) => (
-            <option key={index + 1} value={index + 1}>
-              {index + 1}월
-            </option>
-          ))}
-        </select>
-      </div>
-
       <main className="main-content">
         {renderDiariesByType("text", Jellyfish)}
       </main>

@@ -9,21 +9,20 @@
   position: relative;
 }
 
-.diary-form {
-  font-family: "GangwonEdu_OTFBoldA";
-  background-color: transparent;
-  padding: 20px;
-  max-width: 1300px;
-  width: 100%;
-  text-align: center;
+.back-button {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.diary-input,
-.diary-textarea {
+.diary-title-container {
   font-family: "GangwonEdu_OTFBoldA";
   height: 40px;
-  width: 100%;
-  padding: 10px;
+  width: 1320px;
+
   margin: 10px 0;
   border-radius: 20px;
   border: none;
@@ -31,50 +30,56 @@
   font-size: 16px;
 }
 
-.diary-input:focus,
-.diary-textarea:focus {
-  outline: 2px solid #ffffff;
+.diary-title-container h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
 }
 
-.diary-textarea {
-  height: 500px;
+.diary-date-container {
+  width: 1320px;
+  height: 40px;
+  background: #ffffff;
+  margin-top: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.diary-date-container p {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.diary-content-container {
+  max-width: 1320px;
+  min-width: 1320px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 556px;
   resize: none;
 }
 
-.diary-submit {
-  background-color: #88b3ff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+.diary-content-container p {
+  width: 1320px;
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.diary-content-container img {
+  width: 80%;
+  height: auto;
+  margin: 0;
   border-radius: 20px;
-  font-size: 18px;
-  cursor: pointer;
-  margin-top: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.diary-submit:hover {
-  background-color: #669cff;
-}
-
-.icon-button {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  position: absolute;
-}
-
-.back-button {
-  top: 50px;
-  left: 50px;
-}
-
-.save-button {
-  top: 50px;
-  right: 50px;
-}
-
-input[type="date"]:not(.has-value)::before {
-  color: gray;
-  content: attr(placeholder);
+.diary-content-container audio {
+  width: 1320px;
+  margin: 0;
+  font-size: 14px;
+  color: #333;
 }

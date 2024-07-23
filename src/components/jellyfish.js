@@ -1,27 +1,29 @@
-import React, { useRef, useEffect } from 'react';
-import { useSpring, animated, to } from '@react-spring/web';
-import { useGesture } from 'react-use-gesture';
-import imgs from './data';
-import styles from '../jellyfish.module.css';
+import React, { useRef, useEffect } from "react";
+import { useSpring, animated, to } from "@react-spring/web";
+import { useGesture } from "react-use-gesture";
+import imgs from "./data";
+import styles from "../jellyfish.module.css";
 
-const calcX = (y, ly) => -(y - ly - window.innerHeight / 2) / 20 ;
-const calcY = (x, lx) => (x - lx - window.innerWidth / 2) / 20 ;
+const calcX = (y, ly) => -(y - ly - window.innerHeight / 2) / 20;
+const calcY = (x, lx) => (x - lx - window.innerWidth / 2) / 20;
 
 const wheel = (y) => {
   const imgHeight = window.innerWidth * 0.3 - 20;
-  return `translateY(${-imgHeight * (y < 0 ? 6 : 1) - (y % (imgHeight * 5))}px)`;
+  return `translateY(${
+    -imgHeight * (y < 0 ? 6 : 1) - (y % (imgHeight * 5))
+  }px)`;
 };
 
-export default function Jellyfish() {
+export default function Jellyfish({ onClick }) {
   useEffect(() => {
     const preventDefault = (e) => e.preventDefault();
-    document.addEventListener('gesturestart', preventDefault);
-    document.addEventListener('gesturechange', preventDefault);
+    document.addEventListener("gesturestart", preventDefault);
+    document.addEventListener("gesturechange", preventDefault);
 
     return () => {
-      document.removeEventListener('gesturestart', preventDefault);
-      document.removeEventListener('gesturechange', preventDefault);
-    }
+      document.removeEventListener("gesturestart", preventDefault);
+      document.removeEventListener("gesturechange", preventDefault);
+    };
   }, []);
 
   const domTarget = useRef(null);
@@ -63,25 +65,26 @@ export default function Jellyfish() {
   );
 
   return (
-    <div className={styles.container}>
-        <animated.div
+    <div className={styles.container} onClick={onClick}>
+      <animated.div
         ref={domTarget}
         className={styles.card}
         style={{
-            transform: 'perspective(600px)',
-            x,
-            y,
-            scale: to([scale, zoom], (s, z) => s + z),
-            rotateX,
-            rotateY,
-            rotateZ,
-        }}>
-            <animated.div style={{ transform: wheelY.to(wheel) }}>
-                {imgs.map((img, i) => (
-                <div key={i} style={{ backgroundImage: `url(${img})` }} />
-                ))}
-            </animated.div>
+          transform: "perspective(600px)",
+          x,
+          y,
+          scale: to([scale, zoom], (s, z) => s + z),
+          rotateX,
+          rotateY,
+          rotateZ,
+        }}
+      >
+        <animated.div style={{ transform: wheelY.to(wheel) }}>
+          {imgs.map((img, i) => (
+            <div key={i} style={{ backgroundImage: `url(${img})` }} />
+          ))}
         </animated.div>
+      </animated.div>
     </div>
   );
 }

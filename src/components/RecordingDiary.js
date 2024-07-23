@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import lamejs from "lamejs";
 import exit from "../images/exit.png";
 import save from "../images/save.png";
 import pause from "../images/pause.png";
@@ -8,13 +9,19 @@ import stop from "../images/stop.png";
 import microphone from "../images/microphone.png";
 import { useNavigate } from "react-router-dom";
 import "../record.css";
-import lamejs from "lamejs";
+import MPEGMode from "lamejs/src/js/MPEGMode";
+import Lame from "lamejs/src/js/Lame";
+import BitStream from "lamejs/src/js/BitStream";
+
+window.MPEGMode = MPEGMode;
+window.Lame = Lame;
+window.BitStream = BitStream;
 
 const RecordingDiary = ({ gradient }) => {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [recording, setRecording] = useState(false);
-  const [mp3URL, setMp3URL] = useState("");
+  const [audioURL, setAudioURL] = useState("");
   const [isPaused, setIsPaused] = useState(false);
   const [isRecordingComplete, setIsRecordingComplete] = useState(false);
   const [recordTime, setRecordTime] = useState(0);
@@ -45,17 +52,13 @@ const RecordingDiary = ({ gradient }) => {
     };
 
     mediaRecorder.onstop = async () => {
-      // Blob은 데이터를 간접적으로 접근하기 위한 객체
-      // 이진 데이터를 나타내며, 텍스트, 이미지, 오디오, 비디오 등의 형식을 지원
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-
-      // wav 형식 음원을 mp3 형식으로 변환
       const arrayBuffer = await audioBlob.arrayBuffer();
       const audioData = new Uint8Array(arrayBuffer);
 
-      const mp3Blob = convertToMp3(audioData); // WAV -> MP3
-      const mp3URL = URL.createObjectURL(audioBlob);
-      setMp3URL(mp3URL);
+      const mp3Blob = convertToMp3(audioData);
+      const mp3URL = URL.createObjectURL(mp3Blob);
+      setAudioURL(mp3URL);
       audioChunksRef.current = [];
     };
 
@@ -68,19 +71,16 @@ const RecordingDiary = ({ gradient }) => {
   };
 
   const handlePauseRecording = () => {
-    // 정지 상태에서 pause 버튼을 누르면 녹음 재개
     if (
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state === "recording"
     ) {
-      mediaRecorderRef.current.resume();
-    }
-    // 녹음 상태에서 pause 버튼을 누르면 녹음 정지
-    else if (
+      mediaRecorderRef.current.pause();
+    } else if (
       mediaRecorderRef.current &&
       mediaRecorderRef.current.state === "paused"
     ) {
-      mediaRecorderRef.current.pause();
+      mediaRecorderRef.current.resume();
     }
     setIsPaused(!isPaused);
   };
@@ -100,7 +100,6 @@ const RecordingDiary = ({ gradient }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Blob을 파일로 변환하여 서버에 전송
     const mp3Blob = new Blob(audioChunksRef.current, { type: "audio/mp3" });
     const formData = new FormData();
     formData.append("audio", mp3Blob, "recording.mp3");

@@ -44,7 +44,8 @@ const Drawing = ({ onSave }) => {
     ctxRef.current.stroke();
   };
 
-  const saveDrawing = () => {
+  const saveDrawing = (e) => {
+    e.preventDefault(); // 기본 동작 막기
     const canvas = canvasRef.current;
     const dataURL = canvas.toDataURL("image/png");
     onSave(dataURL);

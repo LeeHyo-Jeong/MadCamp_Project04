@@ -8,7 +8,6 @@ import Login from "./components/login";
 import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
 import RecordingDiary from "./components/RecordingDiary";
-import Belly from "./components/Belly";
 import Diary from "./components/Diary";
 
 const gradients = [

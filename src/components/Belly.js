@@ -9,6 +9,8 @@ import {
   animated,
   useSpringRef,
 } from "@react-spring/web";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import data from "./colordata";
 import styles from "../boxes.module.css";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +21,21 @@ const Belly = () => {
   const [openDraw, setOpenDraw] = useState(false);
   const [openRecord, setOpenRecord] = useState(false);
   const [nickname, setNickname] = useState("");
+  //입 여는 거
+  const [animateOpen, setAnimateOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state.fromOcean) {
+      setAnimateOpen(true);
+      setTimeout(() => {
+        setAnimateOpen(false);
+      }, 1100); // Match the duration of the animation
+    } else {
+      setAnimateOpen(false); // Ensure animateOpen is false for non-Ocean navigations
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const fetchNickname = async () => {
@@ -134,6 +150,30 @@ const Belly = () => {
       <div className="user-nickname">{nickname}아,</div>
       <div className={styles.wrapper}>
         <div className="description">꿈 적으러 가기</div>
+      {animateOpen && (
+        <div className="mouth-animation">
+          <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
+            <defs>
+              <clipPath id="clip">
+                <path className="upper-lip-open" d="M0,50 C100,50 300,50 400,50" />
+                <path className="lower-lip-open" d="M0,50 C100,50 300,50 400,50" />
+              </clipPath>
+              <mask id="mask">
+                <rect width="100%" height="100%" fill="white" />
+                <rect width="100%" height="100%" fill="black" clipPath="url(#clip)" />
+              </mask>
+            </defs>
+            <rect width="100%" height="100%" fill="transparent" />
+            <rect width="100%" height="100%" fill="rgba(0,0,128, 0.8)" mask="url(#mask)" />
+            <path className="upper-lip-open" d="M0,50 C100,50 300,50 400,50" />
+            <path className="lower-lip-open" d="M0,50 C100,50 300,50 400,50" />
+          </svg>
+        </div>
+      )}
+
+      {!animateOpen && (
+        <div className={styles.wrapper}>
+        <div className='description'>꿈 적으러 가기</div>
 
         <animated.div
           style={{ ...restWrite, width: sizeWrite, height: sizeWrite }}
@@ -195,6 +235,9 @@ const Belly = () => {
           ))}
         </animated.div>
       </div>
+
+
+      )}
     </div>
   );
 };

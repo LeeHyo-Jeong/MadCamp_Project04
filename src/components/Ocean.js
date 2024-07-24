@@ -49,7 +49,7 @@ const Ocean = () => {
       .map((diary) => (
         <Component
           key={diary._id}
-          onClick={() => handleNavigation(diary._id, type)}
+          onDoubleClick={() => handleNavigation(diary._id, type)}
         />
       ));
   };

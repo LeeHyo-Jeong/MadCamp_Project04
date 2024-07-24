@@ -23,10 +23,10 @@ const Belly = () => {
   const { size, ...rest } = useSpring({
     ref: springApi,
     config: config.stiff,
-    from: { size: '20%', background: 'hotpink' },
+    from: { size: '60%', background: 'lightblue' },
     to: {
-      size: open ? '100%' : '20%',
-      background: open ? 'white' : 'hotpink',
+      size: open ? '70%' : '60%',
+      background: open ? 'white' : 'lightblue',
     },
   });
 
@@ -45,26 +45,66 @@ const Belly = () => {
     open ? 0.1 : 0.6,
   ]);
 
-  const handleItemClick = (item) => {
-    navigate('/add/1');
-    // navigate(`/path-to-new-page/${item.id}`);
-    // 위와 같은 식으루
-    // 그라데이션마다 id 매겨서 배경 색깔 정해지게 하면 될듯.
+  const handleItemClicktoWrite = (item) => {
+    navigate('/add/text/${item.id}'); //item의 속성에 따라서 배경색 변하게 수정 !!
+  };
+
+  const handleItemClicktoDraw = (item) => {
+    navigate('/add/draw/${item.id}');
+  };
+
+  const handleItemClicktoRecord = (item) => {
+    navigate('/add/audio/${item.id}');
   };
 
   return (
     <div className="inside-belly">
       <div className={styles.wrapper}>
-        <div className='description'>오늘의 꿈에 어울리는 색상을 선택하세요</div>
+        <div className='description'>꿈 적으러 가기</div>
         <animated.div
           style={{ ...rest, width: size, height: size }}
-          className={styles.container}
+          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
           onClick={() => set(open => !open)}>
+          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
+            {open ? '오늘의 꿈과 어울리는 색은?' : '글로 쓸래'}
+          </div>
           {transition((style, item) => (
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClick(item)}
+              onClick={() => handleItemClicktoWrite(item)}
+            />
+          ))}
+        </animated.div>
+
+        <animated.div
+          style={{ ...rest, width: size, height: size }}
+          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
+          onClick={() => set(open => !open)}>
+          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
+            {open ? '오늘의 꿈과 어울리는 색은?' : '그림 그릴래'}
+          </div>
+          {transition((style, item) => (
+            <animated.div
+              className={styles.item}
+              style={{ ...style, background: item.css }}
+              onClick={() => handleItemClicktoDraw(item)}
+            />
+          ))}
+        </animated.div>
+
+        <animated.div
+          style={{ ...rest, width: size, height: size }}
+          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
+          onClick={() => set(open => !open)}>
+          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
+            {open ? '오늘의 꿈과 어울리는 색은?' : '녹음 할래'}
+          </div>
+          {transition((style, item) => (
+            <animated.div
+              className={styles.item}
+              style={{ ...style, background: item.css }}
+              onClick={() => handleItemClicktoRecord(item)}
             />
           ))}
         </animated.div>

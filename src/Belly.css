@@ -1,14 +1,22 @@
 .inside-belly {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-image: url('../public/images/belly_back1.png');
-    background-size: cover;
-    background-position: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url("../public/images/belly_back1.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .description {
-    font-size: 30px;
-    color: black;
-    margin-bottom: 5px;
+  font-size: 30px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.user-nickname {
+  font-size: 60px;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 24%;
+  left: 16%;
 }

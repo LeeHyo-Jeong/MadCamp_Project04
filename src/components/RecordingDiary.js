@@ -60,6 +60,7 @@ const RecordingDiary = ({ gradient }) => {
 
       const mp3Blob = convertToMp3(audioData);
       const mp3URL = URL.createObjectURL(mp3Blob);
+      console.log("MP3 URL", mp3URL);
       setAudioURL(mp3URL);
       audioChunksRef.current = [];
     };
@@ -124,7 +125,7 @@ const RecordingDiary = ({ gradient }) => {
       );
 
       alert("멋진 꿈을 꾸었군요!");
-      // 어딘가로 이동
+      navigate("/ocean");
     } catch (error) {
       console.log(error);
       console.error("There was an error while saving the audio diary", error);
@@ -148,7 +149,15 @@ const RecordingDiary = ({ gradient }) => {
     const channels = 1;
     const mp3Encoder = new lamejs.Mp3Encoder(channels, sampleRate, 128);
     const mp3Data = [];
-    const samples = new Int16Array(audioData.buffer);
+    // Ensure the byte length of audioData.buffer is a multiple of 2
+    let buffer = audioData.buffer;
+    if (buffer.byteLength % 2 !== 0) {
+      const tmp = new Uint8Array(buffer.byteLength + 1);
+      tmp.set(new Uint8Array(buffer));
+      buffer = tmp.buffer;
+    }
+
+    const samples = new Int16Array(buffer);
 
     const sampleBlockSize = 1152;
     for (let i = 0; i < samples.length; i += sampleBlockSize) {
@@ -163,8 +172,10 @@ const RecordingDiary = ({ gradient }) => {
     if (mp3buf.length > 0) {
       mp3Data.push(mp3buf);
     }
+    const mp3Blob = new Blob(mp3Data, { type: "audio/mp3" });
+    console.log("MP3 Blob: ", mp3Blob); // 추가된 로깅
 
-    return new Blob(mp3Data, { type: "audio/mp3" });
+    return mp3Blob;
   };
 
   return (

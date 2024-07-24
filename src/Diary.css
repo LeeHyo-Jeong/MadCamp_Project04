@@ -77,8 +77,8 @@
 .diary-content-container p {
   width: 1320px;
   margin: 0;
-  font-size: 14px;
-  color: #333;
+  font-size: 20px;
+  color: #000;
 }
 
 .diary-content-container img {
@@ -93,4 +93,23 @@
   margin: 0;
   font-size: 14px;
   color: #333;
+}
+
+.play-button {
+  background-color: #fba6db;
+  width: 100px; /* 원하는 크기로 설정 */
+  height: 100px; /* 원하는 크기로 설정 */
+  cursor: pointer; /* 포인터 커서로 설정 */
+}
+
+.audio-container {
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 70%;
+}
+
+.audio-text {
+  margin-top: 10px;
+  font-size: 30px;
 }

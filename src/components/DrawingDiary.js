@@ -35,7 +35,8 @@ const DrawingDiary = ({ gradient }) => {
         }
       );
 
-      //navigate("/diaries");
+      alert("멋진 꿈을 꾸었군요!");
+      navigate("/ocean");
     } catch (error) {
       console.log(error);
       console.error("There was an error while saving the diary", error);

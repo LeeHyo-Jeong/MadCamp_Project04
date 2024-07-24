@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Ocean.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import arrow_left from "../images/arrow_left.png";
@@ -27,7 +27,6 @@ const Ocean = () => {
             },
           }
         );
-        console.log(response.data);
         setDiaries(response.data);
       } catch (error) {
         console.log(error);
@@ -50,8 +49,35 @@ const Ocean = () => {
         <Component
           key={diary._id}
           onDoubleClick={() => handleNavigation(diary._id, type)}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            handleDelete(diary._id);
+          }}
         />
       ));
+  };
+
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm("삭제하시겠습니까?");
+    console.log(confirmed);
+    if (confirmed) {
+      const accessToken = localStorage.getItem("accessToken");
+      try {
+        await axios.delete(
+          `${process.env.REACT_APP_BASE_URL}:4000/diary/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setDiaries(diaries.filter((diary) => diary._id !== id));
+        alert("삭제되었습니다.");
+      } catch (error) {
+        console.log(error);
+        console.error("Error deleting diary", error);
+      }
+    }
   };
 
   const handleMonthChange = (e) => {

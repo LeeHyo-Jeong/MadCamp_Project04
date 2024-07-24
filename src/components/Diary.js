@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../Diary.css";
 import "../addDiary.css";
 import exit from "../images/exit.png";
+import play from "../images/play.png";
+import headphone from "../images/headphone.png";
+import mic from "../images/mic.jpg";
 
 const Diary = ({ gradient }) => {
   const { type, id } = useParams();
   const [diary, setDiary] = useState(null);
   const navigate = useNavigate();
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const fetchDiary = async () => {
@@ -23,6 +27,12 @@ const Diary = ({ gradient }) => {
           }
         );
         setDiary(response.data);
+        if (response.data.audio) {
+          const audio = new Audio(
+            `${process.env.REACT_APP_BASE_URL}/${response.data.audio}`
+          );
+          audioRef.current = audio;
+        }
       } catch (error) {
         console.log(error);
         console.error();
@@ -30,6 +40,14 @@ const Diary = ({ gradient }) => {
     };
     fetchDiary();
   }, [type, id]);
+
+  const handlePlayAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.log("Audio play error: ", error);
+      });
+    }
+  };
 
   if (!diary) {
     return <div>Loading...</div>;
@@ -65,13 +83,15 @@ const Diary = ({ gradient }) => {
           />
         )}
         {type === "audio" && diary.audio && (
-          <audio controls>
-            <source
-              src={`${process.env.REACT_APP_BASE_URL}/${diary.audio}`}
-              type="audio/mp3"
+          <div className="audio-container">
+            <img
+              src={mic}
+              alt="Mic"
+              className="play-button"
+              onClick={handlePlayAudio}
             />
-            Your browser does not support the audio element.
-          </audio>
+            <div className="audio-text">그 날의 기록을 들어보아요 :)</div>
+          </div>
         )}
       </div>
     </div>

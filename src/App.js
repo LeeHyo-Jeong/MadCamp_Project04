@@ -10,21 +10,6 @@ import DrawingDiary from "./components/DrawingDiary";
 import RecordingDiary from "./components/RecordingDiary";
 import Diary from "./components/Diary";
 
-const gradients = [
-  "linear-gradient(135deg, #AEECEA, #FAD7E4)",
-  "linear-gradient(135deg, #DBC3FC, #93C5FC)",
-  "linear-gradient(135deg, #D6A1C4, #FDF6D7)",
-  "linear-gradient(135deg, #EAC2FB, #DADDDA)",
-];
-
-const writeTypes = {
-  1: "text",
-  2: "draw",
-  3: "audio",
-};
-
-// add로 되어있는 경로를 wrtie, record, draw 등으로 고치기
-
 function App() {
   const [centerY, setCenterY] = useState(window.innerHeight);
 

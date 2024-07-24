@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../addDiary.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Drawing from "./drawing";
 import exit from "../images/exit.png";
 import save from "../images/save.png";
@@ -11,6 +11,8 @@ const DrawingDiary = ({ gradient }) => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state?.background || gradient;
 
   const handleSave = (imageData) => {
     setImage(imageData);
@@ -25,7 +27,7 @@ const DrawingDiary = ({ gradient }) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}:4000/diary`,
-        { date, title, image, type: "image" },
+        { date, title, image, type: "image", background },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -41,7 +43,7 @@ const DrawingDiary = ({ gradient }) => {
   };
 
   return (
-    <div className="diary-container" style={{ background: gradient }}>
+    <div className="diary-container" style={{ background: background }}>
       <img
         src={exit}
         alt="Back"

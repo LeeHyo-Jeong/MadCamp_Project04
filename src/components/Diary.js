@@ -36,7 +36,10 @@ const Diary = ({ gradient }) => {
   }
 
   return (
-    <div className="diary-container" style={{ background: gradient }}>
+    <div
+      className="diary-container"
+      style={{ background: diary.background || gradient }}
+    >
       <img
         src={exit}
         alt="Back"

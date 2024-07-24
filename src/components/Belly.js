@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import '../Belly.css';
+import React, { useState } from "react";
+import "../Belly.css";
 
 import {
   useTransition,
@@ -8,14 +8,13 @@ import {
   config,
   animated,
   useSpringRef,
-} from '@react-spring/web'
-import { useNavigate } from 'react-router-dom';
+} from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
 
-import data from './colordata'
-import styles from '../boxes.module.css'
+import data from "./colordata";
+import styles from "../boxes.module.css";
 
 const Belly = () => {
-
   const [open, set] = useState(false);
   const navigate = useNavigate();
 
@@ -23,10 +22,10 @@ const Belly = () => {
   const { size, ...rest } = useSpring({
     ref: springApi,
     config: config.stiff,
-    from: { size: '60%', background: 'lightblue' },
+    from: { size: "60%", background: "lightblue" },
     to: {
-      size: open ? '70%' : '60%',
-      background: open ? 'white' : 'lightblue',
+      size: open ? "70%" : "60%",
+      background: open ? "white" : "lightblue",
     },
   });
 
@@ -45,66 +44,79 @@ const Belly = () => {
     open ? 0.1 : 0.6,
   ]);
 
-  const handleItemClicktoWrite = (item) => {
-    navigate('/add/text/${item.id}'); //item의 속성에 따라서 배경색 변하게 수정 !!
+  // item의 속성에 따라서 배경 색이 변함
+  const handleItemClick = (item, type) => {
+    navigate(`/add/${type}`, { state: { background: item.css } });
   };
 
-  const handleItemClicktoDraw = (item) => {
-    navigate('/add/draw/${item.id}');
-  };
+  // const handleItemClicktoWrite = (item) => {
+  //   navigate(`/add/text/${item.name}`); //item의 속성에 따라서 배경색 변하게 수정 !!
+  // };
 
-  const handleItemClicktoRecord = (item) => {
-    navigate('/add/audio/${item.id}');
-  };
+  // const handleItemClicktoDraw = (item) => {
+  //   navigate(`/add/draw/${item.name}`);
+  // };
+
+  // const handleItemClicktoRecord = (item) => {
+  //   navigate(`/add/audio/${item.name}`);
+  // };
 
   return (
     <div className="inside-belly">
       <div className={styles.wrapper}>
-        <div className='description'>꿈 적으러 가기</div>
+        <div className="description">꿈 적으러 가기</div>
         <animated.div
           style={{ ...rest, width: size, height: size }}
-          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
-          onClick={() => set(open => !open)}>
-          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
-            {open ? '오늘의 꿈과 어울리는 색은?' : '글로 쓸래'}
+          className={`${styles.container} ${
+            open ? styles["container-centered"] : ""
+          }`}
+          onClick={() => set((open) => !open)}
+        >
+          <div style={{ color: open ? "black" : "navy", fontSize: "24px" }}>
+            {open ? "오늘의 꿈과 어울리는 색은?" : "글로 쓸래"}
           </div>
           {transition((style, item) => (
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoWrite(item)}
+              onClick={() => handleItemClick(item, "text")}
             />
           ))}
         </animated.div>
 
         <animated.div
           style={{ ...rest, width: size, height: size }}
-          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
-          onClick={() => set(open => !open)}>
-          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
-            {open ? '오늘의 꿈과 어울리는 색은?' : '그림 그릴래'}
+          className={`${styles.container} ${
+            open ? styles["container-centered"] : ""
+          }`}
+          onClick={() => set((open) => !open)}
+        >
+          <div style={{ color: open ? "black" : "navy", fontSize: "24px" }}>
+            {open ? "오늘의 꿈과 어울리는 색은?" : "그림 그릴래"}
           </div>
           {transition((style, item) => (
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoDraw(item)}
+              onClick={() => handleItemClick(item, "draw")}
             />
           ))}
         </animated.div>
-
         <animated.div
           style={{ ...rest, width: size, height: size }}
-          className={`${styles.container} ${open ? styles['container-centered'] : ''}`}
-          onClick={() => set(open => !open)}>
-          <div style={{ color: open ? 'black' : 'navy', fontSize: '24px' }}>
-            {open ? '오늘의 꿈과 어울리는 색은?' : '녹음 할래'}
+          className={`${styles.container} ${
+            open ? styles["container-centered"] : ""
+          }`}
+          onClick={() => set((open) => !open)}
+        >
+          <div style={{ color: open ? "black" : "navy", fontSize: "24px" }}>
+            {open ? "오늘의 꿈과 어울리는 색은?" : "녹음 할래"}
           </div>
           {transition((style, item) => (
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoRecord(item)}
+              onClick={() => handleItemClick(item, "audio")}
             />
           ))}
         </animated.div>

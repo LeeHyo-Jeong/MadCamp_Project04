@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../addDiary.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import exit from "../images/exit.png";
 import save from "../images/save.png";
 
@@ -9,8 +9,10 @@ const WriteDiary = ({ gradient }) => {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const type="text";
+  const type = "text";
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state?.background || gradient;
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
@@ -28,7 +30,7 @@ const WriteDiary = ({ gradient }) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}:4000/diary`,
-        { date, title, contents, type },
+        { date, title, contents, type, background },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -48,7 +50,7 @@ const WriteDiary = ({ gradient }) => {
   };
 
   return (
-    <div className="diary-container" style={{ background: gradient }}>
+    <div className="diary-container" style={{ background: background }}>
       <img
         src={exit}
         alt="Back"

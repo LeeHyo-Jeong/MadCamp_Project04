@@ -8,7 +8,6 @@ import Login from "./components/login";
 import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
 import RecordingDiary from "./components/RecordingDiary";
-import Belly from "./components/Belly";
 import Diary from "./components/Diary";
 
 const gradients = [
@@ -71,18 +70,9 @@ function App() {
           />
           <Route path="/ocean" element={<Ocean />} />
           <Route path="/belly" element={<Belly />} />
-          <Route
-            path="/add/text"
-            element={<WriteDiary gradient={gradients[0]} />}
-          />
-          <Route
-            path="/add/draw"
-            element={<DrawingDiary gradient={gradients[1]} />}
-          />
-          <Route
-            path="/add/audio"
-            element={<RecordingDiary gradient={gradients[2]} />}
-          />
+          <Route path="/add/text" element={<WriteDiary />} />
+          <Route path="/add/draw" element={<DrawingDiary />} />
+          <Route path="/add/audio" element={<RecordingDiary />} />
           <Route path="/belly" element={<Belly />} />
           <Route path="/diary/:type/:id" element={<Diary />} />
         </Routes>

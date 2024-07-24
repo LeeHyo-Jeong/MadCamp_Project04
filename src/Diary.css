@@ -19,6 +19,10 @@
 }
 
 .diary-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
   font-family: "GangwonEdu_OTFBoldA";
   height: 40px;
   width: 1320px;
@@ -31,12 +35,16 @@
 }
 
 .diary-title-container h1 {
+  justify-content: center;
   margin: 0;
   font-size: 24px;
   color: #333;
 }
 
 .diary-date-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 1320px;
   height: 40px;
   background: #ffffff;
@@ -49,11 +57,14 @@
 
 .diary-date-container p {
   margin: 0;
-  font-size: 16px;
-  color: #666;
+  font-size: 20px;
+  color: #000;
 }
 
 .diary-content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 1320px;
   min-width: 1320px;
   background: #ffffff;

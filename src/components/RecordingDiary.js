@@ -7,7 +7,7 @@ import pause from "../images/pause.png";
 import play from "../images/play.png";
 import stop from "../images/stop.png";
 import microphone from "../images/microphone.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../record.css";
 import MPEGMode from "lamejs/src/js/MPEGMode";
 import Lame from "lamejs/src/js/Lame";
@@ -29,6 +29,8 @@ const RecordingDiary = ({ gradient }) => {
   const audioChunksRef = useRef([]);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state?.background;
 
   useEffect(() => {
     if (recording && !isPaused) {
@@ -106,6 +108,7 @@ const RecordingDiary = ({ gradient }) => {
     formData.append("date", date);
     formData.append("title", title);
     formData.append("type", "audio");
+    formData.append("background", background);
 
     const accessToken = localStorage.getItem("accessToken");
     try {
@@ -165,7 +168,7 @@ const RecordingDiary = ({ gradient }) => {
   };
 
   return (
-    <div className="diary-container" style={{ background: gradient }}>
+    <div className="diary-container" style={{ background: background }}>
       <img
         src={exit}
         alt="Back"

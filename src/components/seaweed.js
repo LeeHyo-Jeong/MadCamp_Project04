@@ -14,7 +14,7 @@ const wheel = (y) => {
   }px)`;
 };
 
-export default function Seaweed({ onClick }) {
+export default function Seaweed({ onDoubleClick }) {
   useEffect(() => {
     const preventDefault = (e) => e.preventDefault();
     document.addEventListener("gesturestart", preventDefault);
@@ -65,7 +65,7 @@ export default function Seaweed({ onClick }) {
   );
 
   return (
-    <div className={styles.container} onClick={onClick}>
+    <div className={styles.container} onDoubleClick={onDoubleClick}>
       <animated.div
         ref={domTarget}
         className={styles.card}

@@ -79,7 +79,7 @@ const Diary = ({ gradient }) => {
             src={
               diary.image.startsWith("data:image/")
                 ? diary.image
-                : `${process.env.REACT_APP_BASE_URL}/${diary.image}`
+                : `${process.env.REACT_APP_BASE_URL}:4000/${diary.image}`
             }
             alt="Diary"
           />

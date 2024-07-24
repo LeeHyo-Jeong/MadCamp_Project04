@@ -41,7 +41,7 @@ const WriteDiary = ({ gradient }) => {
       alert("멋진 꿈을 꾸었군요!");
 
       // 일기 보여주는 곳으로 이동
-      navigate("/ocena");
+      navigate("/ocean");
     } catch (error) {
       console.error("There was an error while saving the diary", error);
     }
@@ -55,7 +55,7 @@ const WriteDiary = ({ gradient }) => {
         src={exit}
         alt="Back"
         className="icon-button back-button"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/belly`, { state: { fromOcean: false } })}
       />
       <form onSubmit={handleSubmit} className="diary-form">
         <input

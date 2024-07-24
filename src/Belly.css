@@ -1,4 +1,5 @@
 .inside-belly {
+
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -17,6 +18,64 @@
   font-size: 60px;
   position: absolute;
   transform: translateX(-50%);
-  top: 24%;
+  top: 16%;
   left: 16%;
+}
+
+.icon-button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.back-button {
+    top: 50px;
+    left: 50px;
+}
+
+/* 입 닫기 위한 디자인 */
+@keyframes upperLipOpen {
+    0% {
+        d: path("M-20,50 C100,50 300,50 420,50");
+    }
+    100% {
+        d: path("M-20,50 C100,0 300,0 420,50");
+    }
+}
+
+@keyframes lowerLipOpen {
+    0% {
+        d: path("M-20,50 C100,50 300,50 420,50");
+    }
+    100% {
+        d: path("M-20,50 C100,100 300,100 420,50");
+    }
+}
+
+.mouth-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.upper-lip-open,
+.lower-lip-open {
+    fill: none;
+    stroke: rgba(255,255,255, 0.05);
+    stroke-width: 20;
+}
+
+.upper-lip-open {
+    animation: upperLipOpen 1s forwards;
+    /* 여기가 시간 바뀌는 부분 */
+}
+
+.lower-lip-open {
+    animation: lowerLipOpen 1s forwards;
+    /* 여기가 시간 바뀌는 부분 */
 }

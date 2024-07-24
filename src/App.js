@@ -29,23 +29,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Canvas</Link>
-            </li>
-            <li>
-              <Link to="/ocean">Ocean</Link>
-              <Link to="/belly">Belly</Link>
-            </li>
-            <li>
-              <Link to="/add/text">Add text</Link>
-              <Link to="/add/draw">Add draw</Link>
-              <Link to="/add/audio">Add audio</Link>
-              <Link to="/belly">Belly</Link>
-            </li>
-          </ul>
-        </nav>
         <Routes>
           <Route
             path="/"
@@ -58,7 +41,6 @@ function App() {
           <Route path="/add/text" element={<WriteDiary />} />
           <Route path="/add/draw" element={<DrawingDiary />} />
           <Route path="/add/audio" element={<RecordingDiary />} />
-          <Route path="/belly" element={<Belly />} />
           <Route path="/diary/:type/:id" element={<Diary />} />
         </Routes>
       </div>

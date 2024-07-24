@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import data from "./colordata";
 import styles from "../boxes.module.css";
 import axios from "axios";
+import exit from "../images/exit.png";
 
 const Belly = () => {
   const [openWrite, setOpenWrite] = useState(false);
@@ -146,7 +147,6 @@ const Belly = () => {
 
   return (
     <div className="inside-belly">
-      <div className="user-nickname">{nickname}아,</div>
       {animateOpen && (
         <div className="mouth-animation">
           <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
@@ -170,66 +170,71 @@ const Belly = () => {
 
       {!animateOpen && (
         <div className={styles.wrapper}>
-        <div className='description'>꿈 적으러 가기</div>
-
-        <animated.div
-          style={{ ...restWrite, width: sizeWrite, height: sizeWrite }}
-          className={`${styles.container} ${
-            openWrite ? styles["container-centered"] : ""
-          }`}
-          onClick={() => setOpenWrite((open) => !open)}
-        >
-          <div
-            style={{ color: openWrite ? "black" : "navy", fontSize: "24px" }}
+          <img
+            src={exit}
+            alt="Back"
+            className="icon-button back-button"
+            onClick={() => navigate(`/ocean`)}/>
+          <div className="user-nickname">{nickname}아,</div>
+          <div className='description'>꿈 적으러 가기</div>
+          <animated.div
+            style={{ ...restWrite, width: sizeWrite, height: sizeWrite }}
+            className={`${styles.container} ${
+              openWrite ? styles["container-centered"] : ""
+            }`}
+            onClick={() => setOpenWrite((open) => !open)}
           >
-            {openWrite ? "오늘의 꿈과 어울리는 색은?" : "글로 쓸래"}
-          </div>
-          {transitionWrite((style, item) => (
-            <animated.div
-              className={styles.item}
-              style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoWrite(item)}
-            />
-          ))}
-        </animated.div>
-        <animated.div
-          style={{ ...restDraw, width: sizeDraw, height: sizeDraw }}
-          className={`${styles.container} ${
-            openDraw ? styles["container-centered"] : ""
-          }`}
-          onClick={() => setOpenDraw((open) => !open)}
-        >
-          <div style={{ color: openDraw ? "black" : "navy", fontSize: "24px" }}>
-            {openDraw ? "오늘의 꿈과 어울리는 색은?" : "그림 그릴래"}
-          </div>
-          {transitionDraw((style, item) => (
-            <animated.div
-              className={styles.item}
-              style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoDraw(item)}
-            />
-          ))}
-        </animated.div>
-        <animated.div
-          style={{ ...restRecord, width: sizeRecord, height: sizeRecord }}
-          className={`${styles.container} ${
-            openRecord ? styles["container-centered"] : ""
-          }`}
-          onClick={() => setOpenRecord((open) => !open)}
-        >
-          <div
-            style={{ color: openRecord ? "black" : "navy", fontSize: "24px" }}
+            <div
+              style={{ color: openWrite ? "black" : "navy", fontSize: "24px" }}
+            >
+              {openWrite ? "오늘의 꿈과 어울리는 색은?" : "글로 쓸래"}
+            </div>
+            {transitionWrite((style, item) => (
+              <animated.div
+                className={styles.item}
+                style={{ ...style, background: item.css }}
+                onClick={() => handleItemClicktoWrite(item)}
+              />
+            ))}
+          </animated.div>
+          <animated.div
+            style={{ ...restDraw, width: sizeDraw, height: sizeDraw }}
+            className={`${styles.container} ${
+              openDraw ? styles["container-centered"] : ""
+            }`}
+            onClick={() => setOpenDraw((open) => !open)}
           >
-            {openRecord ? "오늘의 꿈과 어울리는 색은?" : "녹음 할래"}
-          </div>
-          {transitionRecord((style, item) => (
-            <animated.div
-              className={styles.item}
-              style={{ ...style, background: item.css }}
-              onClick={() => handleItemClicktoRecord(item)}
-            />
-          ))}
-        </animated.div>
+            <div style={{ color: openDraw ? "black" : "navy", fontSize: "24px" }}>
+              {openDraw ? "오늘의 꿈과 어울리는 색은?" : "그림 그릴래"}
+            </div>
+            {transitionDraw((style, item) => (
+              <animated.div
+                className={styles.item}
+                style={{ ...style, background: item.css }}
+                onClick={() => handleItemClicktoDraw(item)}
+              />
+            ))}
+          </animated.div>
+          <animated.div
+            style={{ ...restRecord, width: sizeRecord, height: sizeRecord }}
+            className={`${styles.container} ${
+              openRecord ? styles["container-centered"] : ""
+            }`}
+            onClick={() => setOpenRecord((open) => !open)}
+          >
+            <div
+              style={{ color: openRecord ? "black" : "navy", fontSize: "24px" }}
+            >
+              {openRecord ? "오늘의 꿈과 어울리는 색은?" : "녹음 할래"}
+            </div>
+            {transitionRecord((style, item) => (
+              <animated.div
+                className={styles.item}
+                style={{ ...style, background: item.css }}
+                onClick={() => handleItemClicktoRecord(item)}
+              />
+            ))}
+          </animated.div>
         </div>
       )}
     </div>

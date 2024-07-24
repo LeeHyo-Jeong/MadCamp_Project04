@@ -18,8 +18,20 @@
   font-size: 60px;
   position: absolute;
   transform: translateX(-50%);
-  top: 24%;
+  top: 16%;
   left: 16%;
+}
+
+.icon-button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.back-button {
+    top: 50px;
+    left: 50px;
 }
 
 /* 입 닫기 위한 디자인 */

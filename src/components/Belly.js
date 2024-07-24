@@ -13,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import data from "./colordata";
 import styles from "../boxes.module.css";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Belly = () => {
@@ -148,8 +147,6 @@ const Belly = () => {
   return (
     <div className="inside-belly">
       <div className="user-nickname">{nickname}아,</div>
-      <div className={styles.wrapper}>
-        <div className="description">꿈 적으러 가기</div>
       {animateOpen && (
         <div className="mouth-animation">
           <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
@@ -195,7 +192,6 @@ const Belly = () => {
             />
           ))}
         </animated.div>
-
         <animated.div
           style={{ ...restDraw, width: sizeDraw, height: sizeDraw }}
           className={`${styles.container} ${
@@ -234,9 +230,7 @@ const Belly = () => {
             />
           ))}
         </animated.div>
-      </div>
-
-
+        </div>
       )}
     </div>
   );

@@ -97,15 +97,15 @@ const Belly = () => {
   ]);
 
   const handleItemClicktoWrite = (item) => {
-    navigate(`/add/text/${item.name}`);
+    navigate(`/add/text`, {state: { background: item.css }});
   };
 
   const handleItemClicktoDraw = (item) => {
-    navigate(`/add/draw/${item.name}`);
+    navigate(`/add/draw`, {state: { background: item.css }});
   };
 
   const handleItemClicktoRecord = (item) => {
-    navigate(`/add/audio/${item.name}`);
+    navigate(`/add/audio`, {state: { background: item.css }});
   };
 
   return (
@@ -124,7 +124,7 @@ const Belly = () => {
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClick(item, "text")}
+              onClick={() => handleItemClicktoWrite(item)}
             />
           ))}
         </animated.div>
@@ -140,7 +140,7 @@ const Belly = () => {
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClick(item, "draw")}
+              onClick={() => handleItemClicktoDraw(item)}
             />
           ))}
         </animated.div>
@@ -155,7 +155,7 @@ const Belly = () => {
             <animated.div
               className={styles.item}
               style={{ ...style, background: item.css }}
-              onClick={() => handleItemClick(item, "audio")}
+              onClick={() => handleItemClicktoRecord(item)}
             />
           ))}
         </animated.div>

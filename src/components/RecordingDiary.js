@@ -173,7 +173,7 @@ const RecordingDiary = ({ gradient }) => {
         src={exit}
         alt="Back"
         className="icon-button back-button"
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/belly`, { state: { fromOcean: false } })}
       />
       <form onSubmit={handleSubmit} className="diary-form">
         <input

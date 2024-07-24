@@ -13,6 +13,9 @@ const Ocean = () => {
   const [diaries, setDiaries] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  //입 닫히는 거
+  const [animateClose, setAnimateClose] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -76,6 +79,13 @@ const Ocean = () => {
     } else setSelectedMonth(selectedMonth + 1);
   };
 
+  const handleNavigateToBelly = () => {
+    setAnimateClose(true);
+    setTimeout(() => {
+      navigate(`/belly`, { state: { fromOcean: true } });
+    }, 1700); // Match the duration of the animation
+  };
+
   return (
     <div className="dream-sea">
       <header className="header">
@@ -89,61 +99,44 @@ const Ocean = () => {
           <img src={arrow_right} alt="Right" onClick={handleNextMonth} />
         </button>
       </header>
+      
       <main className="main-content">
         {renderDiariesByType("text", Jellyfish)}
       </main>
-
-      <main className="main-content">{renderDiariesByType("image", Fish)}</main>
-
+      <main className="main-content">
+        {renderDiariesByType("image", Fish)}
+      </main>
       <main className="main-content">
         {renderDiariesByType("audio", Seaweed)}
       </main>
 
       <footer className="footer">
-        <button className="bottom-button" onClick={() => navigate(`/belly`)}>
+        <button className="bottom-button" onClick={handleNavigateToBelly}>
           새로운 꿈을 꾸셨나요?
         </button>
       </footer>
+      {animateClose && (
+        <div className="mouth-animation">
+        <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
+          <defs>
+            <clipPath id="clip">
+              <path className="upper-lip" d="M0,50 C100,0 300,0 400,50" />
+              <path className="lower-lip" d="M0,50 C100,100 300,100 400,50" />
+            </clipPath>
+            <mask id="mask">
+              <rect width="100%" height="100%" fill="white" />
+              <rect width="100%" height="100%" fill="black" clipPath="url(#clip)" />
+            </mask>
+          </defs>
+          <rect width="100%" height="100%" fill="transparent" />
+          <rect width="100%" height="100%" fill="rgba(0, 0, 128, 0.8)" mask="url(#mask)" />
+          <path className="upper-lip" d="M0,50 C100,0 300,0 400,50" />
+          <path className="lower-lip" d="M0,50 C100,100 300,100 400,50" />
+        </svg>
+      </div>
+      )}
     </div>
   );
 };
-//   return (
-//     <div className="dream-sea">
-//       <header className="header">
-//         <button className="nav-button">
-//           <img src={arrow_left} alt="Left" />
-//         </button>
-//         <h1 className="title">000님의 7월의 꿈의 바다</h1>
-//         <button className="nav-button">
-//           <img src={arrow_right} alt="Right" />
-//         </button>
-//       </header>
-
-//       <main className="main-content">
-//         <Jellyfish />
-//         <Jellyfish />
-//         <Jellyfish />
-//       </main>
-
-//       <main className="main-content">
-//         <Fish />
-//         <Fish />
-//         <Fish />
-//       </main>
-
-//       <main className="main-content">
-//         <Seaweed />
-//         <Seaweed />
-//         <Seaweed />
-//       </main>
-
-//       <footer className="footer">
-//         <button className="bottom-button" onClick={() => navigate(`/belly`)}>
-//           새로운 꿈을 꾸셨나요?
-//         </button>
-//       </footer>
-//     </div>
-//   );
-// };
 
 export default Ocean;

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import lamejs from "lamejs";
+import RecordRTC from "recordrtc";
 import exit from "../images/exit.png";
 import save from "../images/save.png";
 import pause from "../images/pause.png";
@@ -9,13 +9,6 @@ import stop from "../images/stop.png";
 import microphone from "../images/microphone.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../record.css";
-import MPEGMode from "lamejs/src/js/MPEGMode";
-import Lame from "lamejs/src/js/Lame";
-import BitStream from "lamejs/src/js/BitStream";
-
-window.MPEGMode = MPEGMode;
-window.Lame = Lame;
-window.BitStream = BitStream;
 
 const RecordingDiary = ({ gradient }) => {
   const [date, setDate] = useState("");
@@ -25,8 +18,7 @@ const RecordingDiary = ({ gradient }) => {
   const [isPaused, setIsPaused] = useState(false);
   const [isRecordingComplete, setIsRecordingComplete] = useState(false);
   const [recordTime, setRecordTime] = useState(0);
-  const mediaRecorderRef = useRef(null);
-  const audioChunksRef = useRef([]);
+  const recorderRef = useRef(null);
   const intervalRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,28 +37,16 @@ const RecordingDiary = ({ gradient }) => {
   }, [recording, isPaused]);
 
   const handleStartRecording = async () => {
-    // 오디오 권한 요청
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
+    const recorder = new RecordRTC(stream, {
+      type: "audio",
+      mimeType: "audio/mp3",
+      recorderType: RecordRTC.StereoAudioRecorder,
+      desiredSampRate: 16000,
+    });
 
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
-    };
-
-    mediaRecorder.onstop = async () => {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-      const arrayBuffer = await audioBlob.arrayBuffer();
-      const audioData = new Uint8Array(arrayBuffer);
-
-      const mp3Blob = convertToMp3(audioData);
-      const mp3URL = URL.createObjectURL(mp3Blob);
-      console.log("MP3 URL", mp3URL);
-      setAudioURL(mp3URL);
-      audioChunksRef.current = [];
-    };
-
-    mediaRecorder.start();
-    mediaRecorderRef.current = mediaRecorder;
+    recorder.startRecording();
+    recorderRef.current = recorder;
     setRecording(true);
     setIsPaused(false);
     setIsRecordingComplete(false);
@@ -74,38 +54,34 @@ const RecordingDiary = ({ gradient }) => {
   };
 
   const handlePauseRecording = () => {
-    if (
-      mediaRecorderRef.current &&
-      mediaRecorderRef.current.state === "recording"
-    ) {
-      mediaRecorderRef.current.pause();
-    } else if (
-      mediaRecorderRef.current &&
-      mediaRecorderRef.current.state === "paused"
-    ) {
-      mediaRecorderRef.current.resume();
+    if (recorderRef.current) {
+      if (!isPaused) {
+        recorderRef.current.pauseRecording();
+      } else {
+        recorderRef.current.resumeRecording();
+      }
+      setIsPaused(!isPaused);
     }
-    setIsPaused(!isPaused);
   };
 
   const handleStopRecording = () => {
-    if (
-      mediaRecorderRef.current &&
-      mediaRecorderRef.current.state !== "inactive"
-    ) {
-      mediaRecorderRef.current.stop();
-      setRecording(false);
-      setIsPaused(true);
-      setIsRecordingComplete(true);
+    if (recorderRef.current) {
+      recorderRef.current.stopRecording(() => {
+        const audioBlob = recorderRef.current.getBlob();
+        const audioURL = URL.createObjectURL(audioBlob);
+        setAudioURL(audioURL);
+        setRecording(false);
+        setIsPaused(false);
+        setIsRecordingComplete(true);
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const mp3Blob = new Blob(audioChunksRef.current, { type: "audio/mp3" });
     const formData = new FormData();
-    formData.append("audio", mp3Blob, "recording.mp3");
+    formData.append("audio", recorderRef.current.getBlob(), "recording.mp3");
     formData.append("date", date);
     formData.append("title", title);
     formData.append("type", "audio");
@@ -127,7 +103,6 @@ const RecordingDiary = ({ gradient }) => {
       alert("멋진 꿈을 꾸었군요!");
       navigate("/ocean");
     } catch (error) {
-      console.log(error);
       console.error("There was an error while saving the audio diary", error);
     }
   };
@@ -142,40 +117,6 @@ const RecordingDiary = ({ gradient }) => {
     const milliseconds = (time % 1).toFixed(1).substring(2);
 
     return `${minutes}:${seconds}.${milliseconds}`;
-  };
-
-  const convertToMp3 = (audioData) => {
-    const sampleRate = 44100;
-    const channels = 1;
-    const mp3Encoder = new lamejs.Mp3Encoder(channels, sampleRate, 128);
-    const mp3Data = [];
-    // Ensure the byte length of audioData.buffer is a multiple of 2
-    let buffer = audioData.buffer;
-    if (buffer.byteLength % 2 !== 0) {
-      const tmp = new Uint8Array(buffer.byteLength + 1);
-      tmp.set(new Uint8Array(buffer));
-      buffer = tmp.buffer;
-    }
-
-    const samples = new Int16Array(buffer);
-
-    const sampleBlockSize = 1152;
-    for (let i = 0; i < samples.length; i += sampleBlockSize) {
-      const sampleChunk = samples.subarray(i, i + sampleBlockSize);
-      const mp3buf = mp3Encoder.encodeBuffer(sampleChunk);
-      if (mp3buf.length > 0) {
-        mp3Data.push(mp3buf);
-      }
-    }
-
-    const mp3buf = mp3Encoder.flush();
-    if (mp3buf.length > 0) {
-      mp3Data.push(mp3buf);
-    }
-    const mp3Blob = new Blob(mp3Data, { type: "audio/mp3" });
-    console.log("MP3 Blob: ", mp3Blob); // 추가된 로깅
-
-    return mp3Blob;
   };
 
   return (
@@ -227,6 +168,7 @@ const RecordingDiary = ({ gradient }) => {
             alt="Stop"
           />
         </div>
+        {audioURL && <audio className="audio" controls src={audioURL}></audio>}
       </div>
       <img
         src={save}

@@ -78,3 +78,8 @@ input[type="date"]:not(.has-value)::before {
   color: gray;
   content: attr(placeholder);
 }
+
+.audio {
+  width: 300px; /* 원하는 너비로 설정 */
+  max-width: 100%;
+}

@@ -28,10 +28,12 @@ const Diary = ({ gradient }) => {
         );
         setDiary(response.data);
         if (response.data.audio) {
-          const audio = new Audio(
-            `${process.env.REACT_APP_BASE_URL}/${response.data.audio}`
-          );
-          audioRef.current = audio;
+          const audioURL = `${process.env.REACT_APP_BASE_URL}:4000/${response.data.audio}`;
+          audioRef.current = new Audio(audioURL);
+          setDiary((prevDiary) => ({
+            ...prevDiary,
+            audioURL,
+          }));
         }
       } catch (error) {
         console.log(error);
@@ -84,13 +86,13 @@ const Diary = ({ gradient }) => {
         )}
         {type === "audio" && diary.audio && (
           <div className="audio-container">
-            <img
-              src={mic}
-              alt="Mic"
-              className="play-button"
-              onClick={handlePlayAudio}
-            />
+            <img src={mic} alt="Mic" className="play-button" />
             <div className="audio-text">그 날의 기록을 들어보아요 :)</div>
+            {diary.audioURL && (
+              <audio className="audio" controls src={diary.audioURL}>
+                Your browser does not support the audio element.
+              </audio>
+            )}
           </div>
         )}
       </div>

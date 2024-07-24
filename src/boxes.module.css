@@ -1,11 +1,10 @@
 .wrapper {
-    width: 60%;
-    height: 60%;
-    /* background: lightblue; */
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 10%;
-    margin-bottom: 10%;
+    width: 200px;
+    height: 300px;
+    background: rgba(255,255,255, 0.5);
+    border-radius: 15px;
+    margin-left: 78%;
+    margin-top: 32%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -15,8 +14,31 @@
 
 .container {
     position: relative;
+    transition: all 0.5s ease-in-out; /* Smooth transition */
+
     display: grid;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-gap: 25px;
+    padding: 20px;
+    margin-bottom: 5px;
+    background: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 10px 10px -5px rgba(0, 0, 0, 0.05);
+    will-change: width, height;
+}
+
+.container-centered {
+    transition: all 0.5s ease-in-out; /* Smooth transition */
+
+    position: fixed; /* Change to fixed to position it relative to the viewport */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust the position to be exactly in the center */
+    z-index: 1000; /* Ensure it appears above other content */
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
     grid-gap: 25px;
     padding: 25px;
     background: white;

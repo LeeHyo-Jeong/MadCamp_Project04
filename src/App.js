@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Canvas from "./components/Canvas";
 import Ocean from "./components/Ocean";
+import Belly from "./components/Belly";
 import Login from "./components/login";
 import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
@@ -49,6 +50,7 @@ function App() {
             </li>
             <li>
               <Link to="/ocean">Ocean</Link>
+              <Link to="/belly">Belly</Link>
             </li>
             <li>
               <Link to="/add/text">Add text</Link>
@@ -60,6 +62,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Canvas centerY={centerY} onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/ocean" element={<Ocean />} />
+          <Route path="/belly" element={<Belly />} />
           <Route
             path="/add/text"
             element={<WriteDiary gradient={gradients[0]} />}

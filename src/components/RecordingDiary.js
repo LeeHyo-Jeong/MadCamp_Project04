@@ -23,6 +23,7 @@ const RecordingDiary = ({ gradient }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state?.background;
+  const [audioBlob, setAudioBlob] = useState(null);
 
   useEffect(() => {
     if (recording && !isPaused) {
@@ -51,14 +52,22 @@ const RecordingDiary = ({ gradient }) => {
     setIsPaused(false);
     setIsRecordingComplete(false);
     setRecordTime(0);
+
+    intervalRef.current = setInterval(() => {
+      setRecordTime((prevTime) => prevTime + 0.1);
+    }, 100);
   };
 
   const handlePauseRecording = () => {
     if (recorderRef.current) {
       if (!isPaused) {
         recorderRef.current.pauseRecording();
+        clearInterval(intervalRef.current);
       } else {
         recorderRef.current.resumeRecording();
+        intervalRef.current = setInterval(() => {
+          setRecordTime((prevTime) => prevTime + 0.1);
+        }, 100);
       }
       setIsPaused(!isPaused);
     }
@@ -73,6 +82,7 @@ const RecordingDiary = ({ gradient }) => {
         setRecording(false);
         setIsPaused(false);
         setIsRecordingComplete(true);
+        clearInterval(intervalRef.current);
       });
     }
   };
@@ -81,7 +91,11 @@ const RecordingDiary = ({ gradient }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("audio", recorderRef.current.getBlob(), "recording.mp3");
+
+    if (audioBlob) {
+      formData.append("audio", audioBlob, "recording.mp3");
+    }
+
     formData.append("date", date);
     formData.append("title", title);
     formData.append("type", "audio");

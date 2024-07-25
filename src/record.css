@@ -4,6 +4,18 @@
   align-items: center;
 }
 
+.diary-record {
+  height: 556px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1320px;
+  border-radius: 20px;
+  background-color: white;
+  margin-top: 10px;
+}
+
 .diary-record-container {
   margin-left: 25px;
   height: 556px;

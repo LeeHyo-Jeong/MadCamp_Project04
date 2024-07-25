@@ -9,6 +9,7 @@ import WriteDiary from "./components/WriteDiary";
 import DrawingDiary from "./components/DrawingDiary";
 import RecordingDiary from "./components/RecordingDiary";
 import Diary from "./components/Diary";
+import EditDiary from "./components/EditDiary";
 
 function App() {
   const [centerY, setCenterY] = useState(window.innerHeight);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/add/draw" element={<DrawingDiary />} />
           <Route path="/add/audio" element={<RecordingDiary />} />
           <Route path="/diary/:type/:id" element={<Diary />} />
+          <Route path="/edit-diary/:type/:id" element={<EditDiary />} />
         </Routes>
       </div>
     </Router>

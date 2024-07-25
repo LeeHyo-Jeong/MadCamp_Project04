@@ -4,8 +4,7 @@ import axios from "axios";
 import "../Diary.css";
 import "../addDiary.css";
 import exit from "../images/exit.png";
-import play from "../images/play.png";
-import headphone from "../images/headphone.png";
+import edit from "../images/edit.png";
 import mic from "../images/mic.jpg";
 
 const Diary = ({ gradient }) => {
@@ -96,6 +95,12 @@ const Diary = ({ gradient }) => {
           </div>
         )}
       </div>
+      <img
+        src={edit}
+        alt="Edit"
+        className="icon-button save-button"
+        onClick={() => navigate(`/edit-diary/${type}/${id}`)}
+      />
     </div>
   );
 };

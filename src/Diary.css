@@ -75,10 +75,14 @@
 }
 
 .diary-content-container p {
+  line-height: 25px;
+  text-align: left;
+  padding-inline: 60px;
   width: 1320px;
   margin: 0;
   font-size: 20px;
   color: #000;
+  white-space: pre-line;
 }
 
 .diary-content-container img {
